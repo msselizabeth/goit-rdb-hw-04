@@ -7,8 +7,12 @@
 **Logs on screnshoots confirm the db and tables were successfully created.**
 
 ### 2. Insert fake values
+
+- SQL
 ![Insert SQL](./p2_insert_values.png)
+
+- Outut example (books)
 ![Books example](./p2_books_example.png)
 
-### 3. JOIN
+### 3. INNER JOIN all tables
 ![Inner Join](./p3_inner_join.png)
