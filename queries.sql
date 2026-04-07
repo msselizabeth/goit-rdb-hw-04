@@ -67,3 +67,114 @@ INSERT INTO borrowed_books (book_id, user_id, borrow_date, return_date) VALUES
 (2, 2, '2023-10-10', '2024-03-13');
 
 -- 3. JOIN tables
+USE uni_tasks;
+SELECT * FROM order_details od
+INNER JOIN orders o ON od.order_id = o.id
+INNER JOIN products p ON od.product_id = p.id
+INNER JOIN categories c ON p.category_id = c.id
+INNER JOIN suppliers s ON p.supplier_id = s.id
+INNER JOIN customers cu ON o.customer_id = cu.id
+INNER JOIN employees e ON o.employee_id = e.employee_id
+INNER JOIN shippers sh ON o.shipper_id = sh.id;
+
+-- 4.
+USE uni_tasks;
+-- 4.1 
+SELECT COUNT(*) AS total_rows
+FROM order_details od
+INNER JOIN orders o ON od.order_id = o.id
+INNER JOIN products p ON od.product_id = p.id
+INNER JOIN categories c ON p.category_id = c.id
+INNER JOIN suppliers s ON p.supplier_id = s.id
+INNER JOIN customers cu ON o.customer_id = cu.id
+INNER JOIN employees e ON o.employee_id = e.employee_id
+INNER JOIN shippers sh ON o.shipper_id = sh.id;
+
+-- 4.2
+SELECT COUNT(*) AS total_rows
+FROM order_details od
+INNER JOIN orders o ON od.order_id = o.id
+INNER JOIN products p ON od.product_id = p.id
+INNER JOIN categories c ON p.category_id = c.id
+INNER JOIN suppliers s ON p.supplier_id = s.id
+INNER JOIN customers cu ON o.customer_id = cu.id
+LEFT JOIN employees e ON o.employee_id = e.employee_id
+LEFT JOIN shippers sh ON o.shipper_id = sh.id
+
+-- 4.3
+SELECT * 
+FROM order_details od
+INNER JOIN orders o ON od.order_id = o.id
+INNER JOIN products p ON od.product_id = p.id
+INNER JOIN categories c ON p.category_id = c.id
+INNER JOIN suppliers s ON p.supplier_id = s.id
+INNER JOIN customers cu ON o.customer_id = cu.id
+LEFT JOIN employees e ON o.employee_id = e.employee_id
+LEFT JOIN shippers sh ON o.shipper_id = sh.id
+WHERE e.employee_id > 3 AND e.employee_id <= 10
+
+-- 4.4
+SELECT 
+    c.name AS category_name,
+    COUNT(*) AS total_rows,
+    AVG(od.quantity) AS avg_quantity 
+FROM order_details od
+INNER JOIN orders o ON od.order_id = o.id
+INNER JOIN products p ON od.product_id = p.id
+INNER JOIN categories c ON p.category_id = c.id
+INNER JOIN suppliers s ON p.supplier_id = s.id
+INNER JOIN customers cu ON o.customer_id = cu.id
+LEFT JOIN employees e ON o.employee_id = e.employee_id
+LEFT JOIN shippers sh ON o.shipper_id = sh.id
+GROUP BY c.name
+
+-- 4.5
+SELECT 
+    c.name AS category_name,
+    COUNT(*) AS total_rows,
+    AVG(od.quantity) AS avg_quantity 
+FROM order_details od
+INNER JOIN orders o ON od.order_id = o.id
+INNER JOIN products p ON od.product_id = p.id
+INNER JOIN categories c ON p.category_id = c.id
+INNER JOIN suppliers s ON p.supplier_id = s.id
+INNER JOIN customers cu ON o.customer_id = cu.id
+LEFT JOIN employees e ON o.employee_id = e.employee_id
+LEFT JOIN shippers sh ON o.shipper_id = sh.id
+GROUP BY c.name
+HAVING avg_quantity > 21;
+
+-- 4.6 
+SELECT 
+    c.name AS category_name,
+    COUNT(*) AS total_rows,
+    AVG(od.quantity) AS avg_quantity 
+FROM order_details od
+INNER JOIN orders o ON od.order_id = o.id
+INNER JOIN products p ON od.product_id = p.id
+INNER JOIN categories c ON p.category_id = c.id
+INNER JOIN suppliers s ON p.supplier_id = s.id
+INNER JOIN customers cu ON o.customer_id = cu.id
+LEFT JOIN employees e ON o.employee_id = e.employee_id
+LEFT JOIN shippers sh ON o.shipper_id = sh.id
+GROUP BY c.name
+HAVING avg_quantity > 21
+ORDER BY total_rows DESC
+
+-- 4.7
+SELECT 
+    c.name AS category_name,
+    COUNT(*) AS total_rows,
+    AVG(od.quantity) AS avg_quantity 
+FROM order_details od
+INNER JOIN orders o ON od.order_id = o.id
+INNER JOIN products p ON od.product_id = p.id
+INNER JOIN categories c ON p.category_id = c.id
+INNER JOIN suppliers s ON p.supplier_id = s.id
+INNER JOIN customers cu ON o.customer_id = cu.id
+LEFT JOIN employees e ON o.employee_id = e.employee_id
+LEFT JOIN shippers sh ON o.shipper_id = sh.id
+GROUP BY c.name
+HAVING avg_quantity > 21
+ORDER BY total_rows DESC
+LIMIT 4 OFFSET 1
